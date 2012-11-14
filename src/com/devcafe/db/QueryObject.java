@@ -36,6 +36,10 @@ public class QueryObject {
         return this;
     }
 
+    public QueryObject select(String field, String alias) {
+        return select(field + " AS " + alias);
+    }
+
     public QueryObject from(String table) {
         if (!tables.contains(table)) {
             tables.add(table);
@@ -58,8 +62,16 @@ public class QueryObject {
         return join("LEFT JOIN", join);
     }
 
+    public QueryObject leftJoin(String table, String condition) {
+        return leftJoin(table + " ON (" + condition + ")");
+    }
+
     public QueryObject innerJoin(String join) {
         return join("INNER JOIN", join);
+    }
+
+    public QueryObject innerJoin(String table, String condition) {
+        return innerJoin(table + " ON (" + condition + ")");
     }
 
     public QueryObject where(String condition) {
